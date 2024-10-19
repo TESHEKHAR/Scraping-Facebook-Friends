@@ -1,5 +1,26 @@
 function updateUI(data) {
     console.log("Received data:", data); 
+    sendScrapedDataToAPI(data);
+}
+
+function sendScrapedDataToAPI(data, facebookId) {
+    fetch('http://localhost:8000/friends', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            facebookId: facebookId ? facebookId : undefined,
+            friends:data
+        }),
+    })
+    .then(response => response.json())
+    .then(apiResponse => {
+        console.log("API response:", apiResponse);
+    })
+    .catch(error => {
+        console.error("Error sending data to API:", error);
+    });
 }
 
 const startScrap = (action) => {
@@ -23,5 +44,6 @@ const startScrap = (action) => {
         }
     });
 };
+
 
 startScrap('scrapeData');

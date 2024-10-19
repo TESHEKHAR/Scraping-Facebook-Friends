@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Your Extension Name",
     "version": "1.0",
-    "permissions": ["activeTab"],
+    "permissions": ["activeTab","http://localhost:8000/*"],
     "background": {
       "service_worker": "background.js"
     },
