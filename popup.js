@@ -1,25 +1,28 @@
-function updateUI(data) {
+function updateUI(data, id) {
     console.log("Received data:", data); 
-    sendScrapedDataToAPI(data);
+    console.log("Received ID:", id);
+    sendScrapedDataToAPI(data, id);
 }
-
-function sendScrapedDataToAPI(data, facebookId) {
+function sendScrapedDataToAPI(data, id) {
     fetch('http://localhost:8000/friends', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            facebookId: facebookId ? facebookId : undefined,
-            friends:data
+            facebookId: "",
+            friends: data, 
+            profileId: id, 
         }),
     })
     .then(response => response.json())
     .then(apiResponse => {
         console.log("API response:", apiResponse);
+        // alert('Data saved successfully!');
     })
     .catch(error => {
         console.error("Error sending data to API:", error);
+        alert('Error saving data.');
     });
 }
 
@@ -32,9 +35,10 @@ const startScrap = (action) => {
                     console.error("Error sending message:", chrome.runtime.lastError);
                     return;
                 }
+
                 console.log("Received response:", response);
                 if (response && response.data) {
-                    updateUI(response.data);
+                    updateUI(response.data, response.id);
                 } else {
                     console.warn("No data received in response.");
                 }
@@ -44,6 +48,5 @@ const startScrap = (action) => {
         }
     });
 };
-
 
 startScrap('scrapeData');

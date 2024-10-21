@@ -1,3 +1,8 @@
+function getProfileIdFromUrl() {
+    const url = new URL(window.location.href);
+    return url.searchParams.get('id');
+}
+
 function scrapeProfileData() {
     const profiles = document.querySelectorAll('.x1qjc9v5');
     const uniqueProfiles = new Set();
@@ -20,35 +25,22 @@ function scrapeProfileData() {
             }
         });
 
-        // const profileLinkElement = profile.querySelector('a');
-        // const profileLink = profileLinkElement ? profileLinkElement.getAttribute('href') : 'No profile link found';
-
         const profileLinkElement = profile.closest('a');
         const profileLink = profileLinkElement ? profileLinkElement.href : 'No profile link found';
 
         if (!uniqueProfiles.has(name)) {
-            uniqueProfiles.add(name); 
-            profileData.push({ name, imageUrl, mutualFriends, profileLink }); 
+            uniqueProfiles.add(name);
+            profileData.push({ name, imageUrl, mutualFriends, profileLink });
         }
     });
-    
+
     return profileData;
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "scrapeData") {
         const data = scrapeProfileData();
-        sendResponse({ data: data });
+        const id = getProfileIdFromUrl();
+        sendResponse({ data: data, id: id });
     }
 });
-
-function friendListGet() {
-    const data = document.querySelectorAll(".xvq8zen"); 
-    const uniqueNames = new Set();
-
-    data.forEach(element => {
-        uniqueNames.add(element.innerText);
-    });
-
-    return Array.from(uniqueNames);
-}
