@@ -19,9 +19,16 @@ function scrapeProfileData() {
                 mutualFriends = match ? match[0] : 'No mutual friends found';
             }
         });
+
+        // const profileLinkElement = profile.querySelector('a');
+        // const profileLink = profileLinkElement ? profileLinkElement.getAttribute('href') : 'No profile link found';
+
+        const profileLinkElement = profile.closest('a');
+        const profileLink = profileLinkElement ? profileLinkElement.href : 'No profile link found';
+
         if (!uniqueProfiles.has(name)) {
             uniqueProfiles.add(name); 
-            profileData.push({ name, imageUrl, mutualFriends }); 
+            profileData.push({ name, imageUrl, mutualFriends, profileLink }); 
         }
     });
     
