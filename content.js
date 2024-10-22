@@ -3,6 +3,13 @@ function getProfileIdFromUrl() {
     return url.searchParams.get('id');
 }
 
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        startScrap('scrapeData');
+    }
+});
+
+
 function scrapeProfileData() {
     const profiles = document.querySelectorAll('.x1qjc9v5');
     const uniqueProfiles = new Set();
