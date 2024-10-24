@@ -47,6 +47,43 @@ const startScrap = (action) => {
             console.warn("No active tabs found.");
         }
     });
+    
 };
 
-startScrap('scrapeData');
+// startScrap('scrapeData');
+// setInterval(() => startScrap('scrapeData'), 2000);
+
+let scrapingInterval; 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const scrapeButton = document.getElementById('scrape');
+    let isScraping = false;
+
+    scrapeButton.addEventListener('click', () => {
+        isScraping = !isScraping;
+
+        if (isScraping) {
+            scrapeButton.textContent = "Stop Scraping";
+            scrapeButton.classList.add('active');
+            startScraping();
+        } else {
+            scrapeButton.textContent = "Start Scraping";
+            scrapeButton.classList.remove('active');
+            stopScraping();
+        }
+    });
+
+    function startScraping() {
+        console.log("Scraping started...");
+        scrapingInterval = setInterval(() => {
+            startScrap('scrapeData');
+        }, 2000);
+    }
+
+    function stopScraping() {
+        console.log("Scraping stopped...");
+        clearInterval(scrapingInterval);
+    }
+});
+
+

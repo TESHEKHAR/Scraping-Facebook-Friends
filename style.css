@@ -1,12 +1,9 @@
-/* Basic reset to remove default margins and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  /* Style for the body to center everything and use a nice font */
-  body {
+}
+body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
     color: #333;
@@ -14,45 +11,32 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  /* Container styling for the page content */
-  .container {
+}
+.container {
     text-align: center;
-    padding: 20px;
+    padding: 5px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    width: 350px;
-  }
-  
-  /* Heading styling */
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #444;
-  }
-  
-  /* Button styling */
-  .scrape-btn {
-    background-color: #1877F2; /* Green color */
+    width: 180px;
+}
+.scrape-btn {
+    background-color: #1877F2;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  /* Button hover and click effect */
-  .scrape-btn:hover {
+}
+.scrape-btn:hover {
     background-color: #65ebe9;
-  }
-  
-  .scrape-btn:active {
+}
+
+.scrape-btn:active {
     transform: scale(0.95);
-  }
-  
-  
-  
+}
+.scrape-btn.active {
+    background-color: #F21848;
+}
